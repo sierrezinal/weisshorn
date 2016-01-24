@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
+	wh "github.com/gophergala2016/weisshorn"
 )
 
 func main() {
-	fmt.Printf("weisshorn server\n")
+	wh.ServerUp(":8888")
 }
