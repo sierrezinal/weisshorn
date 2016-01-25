@@ -1,5 +1,22 @@
 {
 	"ImportPath": ".",
 	"GoVersion": "go1.5",
-	"Deps": []
+	"Packages": [
+		"github.com/sierrezinal/weisshorn"
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/sierrezinal/weisshorn",
+			"Rev": "56523601ad02c146e893338c6829cc4154ee04cf"
+		},
+		{
+			"ImportPath": "github.com/zenazn/goji",
+			"Comment": "v0.9.0-34-gbf843a1",
+			"Rev": "bf843a174a08e846246b8945f8a9a853d84a256a"
+		},
+		{
+			"ImportPath": "gopkg.in/tomb.v2",
+			"Rev": "14b3d72120e8d10ea6e6b7f87f7175734b1faab8"
+		}
+	]
 }
