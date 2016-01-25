@@ -14,3 +14,62 @@
 //Package weisshorn provides functionality to parse & visualize
 //CSVs from compasscard.ca
 package weisshorn
+
+import (
+	//"errors"
+	"fmt"
+	tomb "gopkg.in/tomb.v2"
+	"time"
+)
+
+func init() {
+	fmt.Println("init inside client.go")
+}
+
+type Action interface {
+	Filename() string
+	Stop() error
+}
+
+type LineProducer struct {
+	Action
+
+	Sink      chan string
+	Tombstone tomb.Tomb
+}
+
+func NewLineProducer(lines chan string) *LineProducer {
+	lr := &LineProducer{
+		Sink: lines,
+	}
+	lr.Tombstone.Go(lr.generate)
+	return lr
+}
+
+func (c *LineProducer) Stop() error {
+	c.Tombstone.Kill(nil)
+	fmt.Println("sent killed")
+	return c.Tombstone.Wait()
+}
+
+func (c *LineProducer) generate() error {
+	a := []string{
+		"Jan-20-2016 06:32 PM,Oakridge-41st Stn,Tap out at Oakridge-41st Stn,1 Zone Monthly Pass,2.75",
+		"Jan-19-2016 01:40 PM,Waterfront Stn,Tap in at Waterfront Stn,1 Zone Monthly Pass,-2.75"}
+
+	fmt.Println("CsvImporter :: Running")
+
+	for _, line := range a {
+		fmt.Println(line)
+		time.Sleep(800 * time.Millisecond)
+		select {
+		case c.Sink <- line:
+		case <-c.Tombstone.Dying():
+			return nil
+		}
+	}
+
+	//fmt.Println("CsvImporter :: Dying")
+    close(c.Sink)
+	return nil
+}
