@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	wh "github.com/gophergala2016/weisshorn"
+	wh "github.com/sierrezinal/weisshorn"
 	"strconv"
 	"time"
 )

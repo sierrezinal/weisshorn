@@ -70,6 +70,6 @@ func (c *LineProducer) generate() error {
 	}
 
 	//fmt.Println("CsvImporter :: Dying")
-    close(c.Sink)
+	close(c.Sink)
 	return nil
 }

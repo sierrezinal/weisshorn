@@ -1,7 +1,7 @@
 package main
 
 import (
-	wh "github.com/gophergala2016/weisshorn"
+	wh "github.com/sierrezinal/weisshorn"
 )
 
 func main() {
